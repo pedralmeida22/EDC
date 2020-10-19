@@ -1,5 +1,6 @@
 import pyinputplus as pyip
 from lxml import etree
+import urllib.request
 
 
 def menu():
@@ -21,12 +22,15 @@ def print_tree(root, t=""):
 
 
 def main():
-    tree = etree.parse('xml_files/miect.xml')
+    url = "http://acesso.ua.pt/xml/curso.v5.asp?i=23"
+    document = urllib.request.urlopen(url).read()
+    tree = etree.fromstring(document)
 
     while True:
         response = menu()
 
         if response == "Leitura Doc XML":
+            print("Source: ", url)
             print("Ler: " + tree.find("nome").text)
 
         elif response == "Validar Doc XML":
@@ -36,8 +40,7 @@ def main():
             print("Validação: " + str(schema.validate(tree)))
 
         elif response == "Mostrar Info Curso":
-            root = tree.getroot()
-            print_tree(root)
+            print_tree(tree)
 
         elif response == "Sair":
             break
