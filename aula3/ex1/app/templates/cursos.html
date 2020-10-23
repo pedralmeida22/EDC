@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>cursos</title>
+</head>
+<body>
+<h>Cursos da Universidade de Aveiro</h>
+<ul>
+    {% for c,n in cursos.items %}
+        <a href="/{{ c }}"><li>{{ c }} - {{ n }}</li></a>
+{% endfor %}
+</ul>
+</body>
+</html>
