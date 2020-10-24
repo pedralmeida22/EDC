@@ -6,12 +6,27 @@
 </head>
 <body>
 <ul>
-    <li>Nome</li>
-    <li>Código</li>
-    <li>Graus</li>
-    <li>Departamentos</li>
-    <li>Áreas Científicas</li>
-    <li>Local</li>
+    <li>Nome -> {{ curso.nome }}</li>
+
+    <li>Código -> {{ curso.codigo }}</li>
+
+    <li>Grau -> {{ curso.grau }}</li>
+
+    <li>Departamentos:</li>
+        <ul>
+        {% for depar in curso.departamentos %}
+            <li>{{ depar }}</li>
+        {% endfor %}
+        </ul>
+
+    <li>Áreas Científicas:</li>
+        <ul>
+        {% for area in curso.areas %}
+            <li>{{ area }}</li>
+        {% endfor %}
+        </ul>
+
+    <li>Local -> {{ curso.local }}</li>
 </ul>
 </body>
 </html>

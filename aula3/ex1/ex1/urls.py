@@ -19,6 +19,6 @@ from app import views
 
 urlpatterns = [
     path('', views.cursos),
-    path('/<int:c>', views.curso_details),
+    path('<int:guid>/', views.curso_details),
     path('admin/', admin.site.urls),
 ]
