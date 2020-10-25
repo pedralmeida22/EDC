@@ -13,7 +13,8 @@ def cursos(request):
         info[c.find('guid').text] = c.find('nome').text
 
     tparams = {
-        'cursos': info
+        'cursos': info,
+        'frase': "Cursos da Universidade de Aveiro"
     }
 
     return render(request, 'cursos.html', tparams)
@@ -42,3 +43,90 @@ def curso_details(request, guid):
         'curso': info
     }
     return render(request, 'detalhes.html', tparams)
+
+
+def by_grau(request):
+    grau = request.GET.get("grau")
+    cursos = xml.xpath("//curso[grau = '{}']".format(grau))
+
+    info = dict()
+
+    for c in cursos:
+        info[c.find('guid').text] = c.find('nome').text
+
+    tparams = {
+        'cursos': info,
+        'frase': 'Cursos do grau ' + grau + ':'
+    }
+
+    return render(request, 'cursos.html', tparams)
+
+
+def by_depart(request):
+    depart = request.GET.get("depart")
+    info = dict()
+    cursos = xml.xpath("//curso[departamentos//departamento = '{}']".format(depart))
+
+    for c in cursos:
+        info[c.find('guid').text] = c.find('nome').text
+
+    tparams = {
+        'cursos': info,
+        'frase': 'Cursos do ' + depart + ':'
+    }
+
+    return render(request, 'cursos.html', tparams)
+
+
+def by_area(request):
+    area = request.GET.get("area")
+    info = dict()
+    cursos = xml.xpath("//curso[areascientificas//areacientifica = '{}']".format(area))
+
+    for c in cursos:
+        info[c.find('guid').text] = c.find('nome').text
+
+    tparams = {
+        'cursos': info,
+        'frase': 'Cursos da área ' + area + ':'
+    }
+
+    return render(request, 'cursos.html', tparams)
+
+
+def by_local(request):
+    local = request.GET.get("local")
+    cursos = xml.xpath("//curso[local = '{}']".format(local))
+
+    info = dict()
+
+    for c in cursos:
+        info[c.find('guid').text] = c.find('nome').text
+
+    print("cursos", cursos)
+
+    tparams = {
+        'cursos': info,
+        'frase': 'Cursos de ' + local + ':'
+    }
+
+    return render(request, 'cursos.html', tparams)
+
+
+def departamentos(request):
+    departamentos = xml.xpath("//cursos//departamentos//departamento")
+
+    info = [d.text for d in departamentos]
+
+    tparams = {
+        'departs': info
+    }
+    return render(request, 'departamentos.html', tparams)
+
+
+def areas(request):
+    return HttpResponse("areas")
+
+
+def locais(request):
+    return HttpResponse("locais")

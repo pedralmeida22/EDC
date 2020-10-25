@@ -10,23 +10,23 @@
 
     <li>Código -> {{ curso.codigo }}</li>
 
-    <li>Grau -> {{ curso.grau }}</li>
+    <li>Grau -> <a href='{% url 'by_grau' %}?grau={{ curso.grau }}'>{{ curso.grau }}</a></li>
 
-    <li>Departamentos:</li>
+    <li><a href='{% url 'departs' %}'>Departamentos</a>:</li>
         <ul>
         {% for depar in curso.departamentos %}
-            <li>{{ depar }}</li>
+            <li><a href='{% url 'by_depart' %}?depart={{ depar }}'>{{ depar }}</a></li>
         {% endfor %}
         </ul>
 
-    <li>Áreas Científicas:</li>
+    <li><a href='{% url 'areas' %}'>Áreas Científicas</a>:</li>
         <ul>
         {% for area in curso.areas %}
-            <li>{{ area }}</li>
+            <li><a href='{% url 'by_area' %}?area={{ area }}'>{{ area }}</a></li>
         {% endfor %}
         </ul>
 
-    <li>Local -> {{ curso.local }}</li>
+    <li><a href='{% url 'locais' %}'>Local</a> -> <a href='{% url 'by_local' %}?local={{ curso.local }}'>{{ curso.local }}</a></li>
 </ul>
 </body>
 </html>

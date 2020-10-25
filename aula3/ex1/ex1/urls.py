@@ -21,4 +21,11 @@ urlpatterns = [
     path('', views.cursos),
     path('<int:guid>/', views.curso_details),
     path('admin/', admin.site.urls),
+    path('by_grau/', views.by_grau, name='by_grau'),
+    path('by_depart/', views.by_depart, name='by_depart'),
+    path('by_area/', views.by_area, name='by_area'),
+    path('by_local/', views.by_local, name='by_local'),
+    path('departs/', views.departamentos, name='departs'),
+    path('areas/', views.areas, name='areas'),
+    path('locais/', views.locais, name='locais'),
 ]

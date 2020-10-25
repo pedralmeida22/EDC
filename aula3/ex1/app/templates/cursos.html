@@ -5,7 +5,7 @@
     <title>cursos</title>
 </head>
 <body>
-<h>Cursos da Universidade de Aveiro</h>
+<h>{{ frase }}</h>
 <ul>
     {% for c,n in cursos.items %}
         <a href="/{{ c }}"><li>{{ c }} - {{ n }}</li></a>
