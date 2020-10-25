@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpRequest
 from lxml import etree
+import urllib.request
 
 # Create your views here.
 xml = etree.parse("app/xml_files/cursos.xml")
@@ -25,6 +26,7 @@ def curso_details(request, guid):
 
     curso = xml.find("//curso[guid = '{}']".format(guid))
 
+    info['guid'] = guid
     info['nome'] = curso.find('nome').text
     info['codigo'] = curso.find('codigo').text
     info['grau'] = curso.find('grau').text
@@ -43,6 +45,22 @@ def curso_details(request, guid):
         'curso': info
     }
     return render(request, 'detalhes.html', tparams)
+
+
+def more_details(request, guid):
+    url = "http://acesso.ua.pt/xml/curso.v5.asp?i=" + str(guid)
+    document = urllib.request.urlopen(url).read()
+    root = etree.fromstring(document)
+
+    xsl_file = etree.parse('app/curso.xsl')
+    tranform = etree.XSLT(xsl_file)
+    html = tranform(root)
+
+    tparams = {
+        't': html
+    }
+
+    return render(request, "fullDetails.html", tparams)
 
 
 def by_grau(request):
@@ -107,7 +125,7 @@ def by_local(request):
 
     tparams = {
         'cursos': info,
-        'frase': 'Cursos de ' + local + ':'
+        'frase': 'Cursos em ' + local + ':'
     }
 
     return render(request, 'cursos.html', tparams)
@@ -116,7 +134,7 @@ def by_local(request):
 def departamentos(request):
     departamentos = xml.xpath("//cursos//departamentos//departamento")
 
-    info = [d.text for d in departamentos]
+    info = set([d.text for d in departamentos])
 
     tparams = {
         'departs': info
@@ -125,8 +143,23 @@ def departamentos(request):
 
 
 def areas(request):
-    return HttpResponse("areas")
+    areas = xml.xpath("//curso//areascientificas//areacientifica")
+
+    info = set([a.text for a in areas])
+
+    tparams ={
+        'areas': info
+    }
+    return render(request, 'areas.html', tparams)
 
 
 def locais(request):
-    return HttpResponse("locais")
+    locais = xml.xpath("//curso//local")
+
+    info = set([l.text for l in locais])
+
+    tparams = {
+        'locais': info
+    }
+
+    return render(request, 'locais.html', tparams)

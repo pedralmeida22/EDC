@@ -28,4 +28,5 @@ urlpatterns = [
     path('departs/', views.departamentos, name='departs'),
     path('areas/', views.areas, name='areas'),
     path('locais/', views.locais, name='locais'),
+    path('<int:guid>/details/', views.more_details),
 ]
