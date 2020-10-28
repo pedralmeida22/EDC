@@ -52,7 +52,7 @@ def more_details(request, guid):
     document = urllib.request.urlopen(url).read()
     root = etree.fromstring(document)
 
-    xsl_file = etree.parse('app/curso.xsl')
+    xsl_file = etree.parse('app/xml_files/curso.xsl')
     tranform = etree.XSLT(xsl_file)
     html = tranform(root)
 
