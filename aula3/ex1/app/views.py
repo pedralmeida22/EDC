@@ -1,17 +1,40 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpRequest
 from lxml import etree
 import urllib.request
+from BaseXClient import BaseXClient
+import xmltodict
 
 # Create your views here.
 xml = etree.parse("app/xml_files/cursos.xml")
 
+# create session
+session = BaseXClient.Session('localhost', 1984, 'admin', 'admin')
 
-def cursos(request):
+def cursos2(request):
     info = dict()
     cursos = xml.xpath('//curso')
     for c in cursos:
         info[c.find('guid').text] = c.find('nome').text
+
+    tparams = {
+        'cursos': info,
+        'frase': "Cursos da Universidade de Aveiro"
+    }
+
+    return render(request, 'cursos.html', tparams)
+
+
+def cursos(request):
+    query = "xquery <root>{for $c in collection('cursosUA')//curso return <elem> {$c/guid} {$c/nome} </elem>}</root>"
+    exe = session.execute(query)
+    #print("exe: ", exe)
+
+    output = xmltodict.parse(exe)
+    print("out: ", output)
+
+    info = dict()
+    for c in output["root"]["elem"]:
+        info[c["guid"]] = c["nome"]
 
     tparams = {
         'cursos': info,
