@@ -14,7 +14,7 @@ FROM Evento JOIN Local L on L.ID = Evento.Local_ID;
 -- c
 SELECT Evento.Descricao, L.Nome
 FROM Evento JOIN Local L on L.ID = Evento.Local_ID
-WHERE L.Nome = "UA";
+WHERE L.key = "l1";
 
 -- d
 SELECT Descricao

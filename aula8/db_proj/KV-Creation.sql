@@ -32,7 +32,7 @@ INSERT INTO Objects VALUES('e1', 'Fim', '18:00');
 INSERT INTO Objects VALUES('e1', 'Local_ID', 'l1');
 
 INSERT INTO Objects VALUES('e2', 'Tipo', 'Evento');
-INSERT INTO Objects VALUES('e2', 'Nome', 'Abertura UA');
+INSERT INTO Objects VALUES('e2', 'Nome', 'Abertura UC');
 INSERT INTO Objects VALUES('e2', 'Descricao', 'Festa comemorativa da abertura do ano letivo na Universidade de Coimbra');
 INSERT INTO Objects VALUES('e2', 'Data', '2017-09-30');
 INSERT INTO Objects VALUES('e2', 'Inicio', '10:00');
@@ -40,7 +40,7 @@ INSERT INTO Objects VALUES('e2', 'Fim', '19:00');
 INSERT INTO Objects VALUES('e2', 'Local_ID', 'l2');
 
 INSERT INTO Objects VALUES('e3', 'Tipo', 'Evento');
-INSERT INTO Objects VALUES('e3', 'Nome', 'Abertura UA');
+INSERT INTO Objects VALUES('e3', 'Nome', 'Abertura UP');
 INSERT INTO Objects VALUES('e3', 'Descricao', 'Festa comemorativa da abertura do ano letivo na Universidade do Porto');
 INSERT INTO Objects VALUES('e3', 'Data', '2017-09-25');
 INSERT INTO Objects VALUES('e3', 'Inicio', '13:00');
@@ -48,7 +48,7 @@ INSERT INTO Objects VALUES('e3', 'Fim', '20:00');
 INSERT INTO Objects VALUES('e3', 'Local_ID', 'l3');
 
 INSERT INTO Objects VALUES('e4', 'Tipo', 'Evento');
-INSERT INTO Objects VALUES('e4', 'Nome', 'Abertura UA');
+INSERT INTO Objects VALUES('e4', 'Nome', 'Abertura UL');
 INSERT INTO Objects VALUES('e4', 'Descricao', 'Festa comemorativa da abertura do ano letivo na Universidade de Lisboa');
 INSERT INTO Objects VALUES('e4', 'Data', '2017-09-27');
 INSERT INTO Objects VALUES('e4', 'Inicio', '15:00');
@@ -80,5 +80,5 @@ INSERT INTO Objects VALUES('p4', 'Evento_ID', 'e4');
 INSERT INTO Objects VALUES('p5', 'Tipo', 'Pessoa');
 INSERT INTO Objects VALUES('p5', 'Nome', 'Antonio');
 INSERT INTO Objects VALUES('p5', 'Email', 'antonio@ua.pt');
-INSERT INTO Objects VALUES('p5', 'Evento_ID', NULL); -- nao criar esta entrada
+--INSERT INTO Objects VALUES('p5', 'Evento_ID', NULL); -- nao criar esta entrada
 
