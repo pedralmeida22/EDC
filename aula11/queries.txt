@@ -1,0 +1,60 @@
+1-Conjunto de Predicados no Grafo
+select distinct ?p where { 
+	?s ?p ?o .
+} limit 100 
+
+
+2-Pesquisa de filmes realizados por um Realizador, dado o seu nome
+prefix mov: <http://movies.org/pred/>
+select ?fname 
+where { 
+	?real mov:name "Ridley Scott" .
+    ?film mov:directed_by ?real .
+    ?film mov:name ?fname .
+} limit 100 
+
+
+3-Pesquisa de atores com participação num filme, dado o seu nome
+prefix mov: <http://movies.org/pred/>
+select ?name 
+where { 
+	?fname mov:name "Three Little Pigskins" .
+    ?fname mov:starring ?ator .
+    ?ator mov:name ?name .
+} limit 100 
+
+4- Descrição total de um filme, dado o seu nome
+4.1-
+prefix mov: <http://movies.org/pred/>
+describe ?fname
+where { 
+	?fname mov:name "Blade Runner" .
+} limit 100 
+
+4.2-
+prefix mov: <http://movies.org/pred/>
+select ?o ?oname 
+where { 
+    {
+        select ?s ?p ?o
+        where{
+            ?s mov:name "Blade Runner" .
+            ?s ?p ?o .
+        }
+    }
+    ?o mov:name ?oname
+} limit 100 
+
+
+5- Inferência do tipo filme (rdf:type Movie)
+
+# inferencia, não há inserção (tá mal)
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix movt: <http://www.movies.org/types/>
+prefix mov: <http://www.movies.org/pred/>
+
+construct { ?s rdf:type movt:Movie } 
+where { 
+	?s mov:directed_by ?d .
+}
+

@@ -13,3 +13,14 @@ class InferenceRule:
 
     def maketriples(self, binding):
         return self._maketriples(**binding)
+
+
+class EnemyRule(InferenceRule):
+    def getqueries(self):
+        partner_enemy = [('?person', 'enemy','?enemy'),
+                        ('?rel', 'with', '?person'),
+                        ('?rel', 'with','?partner')]
+        return [partner_enemy]
+
+    def _maketriples(self, person, enemy, rel, partner):
+        return [(partner, 'enemy', enemy)]
