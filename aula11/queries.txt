@@ -4,6 +4,7 @@ select distinct ?p where {
 } limit 100 
 
 
+
 2-Pesquisa de filmes realizados por um Realizador, dado o seu nome
 prefix mov: <http://movies.org/pred/>
 select ?fname 
@@ -12,6 +13,7 @@ where {
     ?film mov:directed_by ?real .
     ?film mov:name ?fname .
 } limit 100 
+
 
 
 3-Pesquisa de atores com participação num filme, dado o seu nome
@@ -23,6 +25,8 @@ where {
     ?ator mov:name ?name .
 } limit 100 
 
+
+
 4- Descrição total de um filme, dado o seu nome
 4.1-
 prefix mov: <http://movies.org/pred/>
@@ -30,6 +34,7 @@ describe ?fname
 where { 
 	?fname mov:name "Blade Runner" .
 } limit 100 
+
 
 4.2-
 prefix mov: <http://movies.org/pred/>
@@ -46,15 +51,71 @@ where {
 } limit 100 
 
 
-5- Inferência do tipo filme (rdf:type Movie)
 
-# inferencia, não há inserção (tá mal)
-prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-prefix movt: <http://www.movies.org/types/>
-prefix mov: <http://www.movies.org/pred/>
+# 5
+# 5.1 Inferência do tipo Movie através de CONSTRUCT
+# Neste caso não há inserção na triplestore, é necessário fazer um INSERT posterior dos resultados 
 
-construct { ?s rdf:type movt:Movie } 
-where { 
-	?s mov:directed_by ?d .
+PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX movt: <http://movies.org/types/>
+PREFIX mov:  <http://movies.org/pred/>
+
+CONSTRUCT { ?s rdf:type movt:Movie }
+
+WHERE {
+    ?s mov:directed_by ?d .
 }
+
+
+# 5.2
+# Consulta de todos os filmes pelo tipo Movie
+
+PREFIX mov: <http://movies.org/pred/>
+PREFIX movt: <http://movies.org/types/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?fname
+WHERE {
+    ?film rdf:type movt:Movie .
+    ?film mov:name ?fname .
+}
+
+
+
+# 5.3 
+# INSERT posterior dos resultados 
+
+PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX movt: <http://movies.org/types/>
+PREFIX mov:  <http://movies.org/pred/>
+
+INSERT { ?s rdf:type movt:Movie }
+WHERE {
+    ?s mov:directed_by ?d .
+}
+
+
+
+# 6. Inferência e classificação profissional das pessoas (rdf:type Director e rdf:type Actor)
+
+PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX movt: <http://movies.org/types/>
+PREFIX mov:  <http://movies.org/pred/>
+
+CONSTRUCT #INSERT
+{
+    ?d rdf:type movt:Direct .
+    ?a rdf:type movt:Actor .
+}
+WHERE
+{
+    {
+        ?f1 mov:directed_by ?d
+    }
+    UNION
+    {
+        ?f1 mov:starring ?a
+    }
+}
+
 

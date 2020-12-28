@@ -17,9 +17,10 @@ class InferenceRule:
 
 class EnemyRule(InferenceRule):
     def getqueries(self):
-        partner_enemy = [('?person', 'enemy','?enemy'),
+        partner_enemy = [('?person', 'enemy', '?enemy'),
                         ('?rel', 'with', '?person'),
-                        ('?rel', 'with','?partner')]
+                        ('?rel', 'with', '?partner')]
+        print("fdg: ", partner_enemy)
         return [partner_enemy]
 
     def _maketriples(self, person, enemy, rel, partner):

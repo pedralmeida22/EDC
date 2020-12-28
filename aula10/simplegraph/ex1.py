@@ -17,6 +17,7 @@ def menu():
 def f1():
     print('Infer all known people from Winona Ryder')
     er = KnownRule()
+    print(er)
     _graph.applyinference(er)
     print('Done-->')
 
@@ -25,7 +26,7 @@ def f2():
     print('List all known people from Winona Ryder')
     lista = _graph.query([('Winona Ryder', 'knows', '?person')])
     for a in lista:
-        print("Winona Ryder --> %s" % (a['person']))
+        print("Winona Ryder knows %s" % (a['person']))
 
 
 def f3():

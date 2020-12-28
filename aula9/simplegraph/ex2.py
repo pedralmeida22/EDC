@@ -21,8 +21,5 @@ if __name__ == "__main__":
 
     _graph.load('celebrities.csv')
 
-    _graph.printAllTriples()
-    print('----------------')
-
     infer_enemies()
     show_enemies("Jay-Z")

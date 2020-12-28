@@ -202,6 +202,7 @@ class SimpleGraph:
         for query in queries:
             bindings += self.query(query)
         for b in bindings:
+            print(b)
             new_triples = rule.maketriples(b)
             for s, p, o in new_triples:
                 self.add(s, p, o)

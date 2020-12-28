@@ -138,7 +138,7 @@ class SimpleGraph:
 
     # guarda os triplos num ficheiro csv
     def save(self, filename):
-        f = open(filename, "w", encoding='utf-8')
+        f = open(filename, "w", encoding='utf-8', newline='')
         writer = csv.writer(f)
         for sub, pred, obj in self.triples(None, None, None):
             writer.writerow([sub, pred, obj])
@@ -146,7 +146,7 @@ class SimpleGraph:
 
     # guarda os triplos num ficheiro csv
     def savetriples(self, filename, trip):
-        f = open(filename, "w", encoding='utf-8')
+        f = open(filename, "w", encoding='utf-8', newline='')
         writer = csv.writer(f)
         ts = self.triples(trip[0], trip[1], trip[2])
         writer.writerow(ts)
@@ -204,9 +204,9 @@ class SimpleGraph:
 
 
     # aplica inferencia ao grafo
-    def applyinference(self,rule):
+    def applyinference(self, rule):
         queries = rule.getqueries()
-        bindings=[]
+        bindings = []
         for query in queries:
             bindings += self.query(query)
         for b in bindings:
